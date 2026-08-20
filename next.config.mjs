@@ -9,6 +9,9 @@ const nextConfig = {
     serverActions: {
       bodySizeLimit: "15mb",
     },
+    outputFileTracingIncludes: {
+      "/**": ["./prisma/prod.db"],
+    },
   },
   async headers() {
     return [
