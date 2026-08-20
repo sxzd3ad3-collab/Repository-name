@@ -25,11 +25,19 @@ const fields: [string, string, string?][] = [
 
 export function SettingsForm({ settings }: { settings: Record<string, string> }) {
   const [msg, setMsg] = useState("");
+  const [err, setErr] = useState("");
+  const [loading, setLoading] = useState(false);
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setMsg("");
+    setErr("");
+    setLoading(true);
     const form = new FormData(e.currentTarget);
     const res = await fetch("/api/admin/settings", { method: "PUT", body: form });
-    if (res.ok) setMsg("تم حفظ الإعدادات");
+    const data = await res.json().catch(() => ({}));
+    setLoading(false);
+    if (!res.ok) setErr(data.error || "تعذر الحفظ. سجّل الدخول مرة أخرى ثم أعد المحاولة.");
+    else setMsg("تم حفظ الإعدادات");
   }
   return (
     <form onSubmit={onSubmit} className="card mt-5 space-y-3 p-5">
@@ -51,8 +59,11 @@ export function SettingsForm({ settings }: { settings: Record<string, string> })
         <label className="label">اللوجو</label>
         <input type="file" name="logoFile" accept="image/*" className="input" />
       </div>
+      {err && <p className="font-bold text-coral">{err}</p>}
       {msg && <p className="font-bold text-leaf">{msg}</p>}
-      <button className="btn-primary">حفظ الإعدادات</button>
+      <button className="btn-primary" disabled={loading}>
+        {loading ? "جاري الحفظ..." : "حفظ الإعدادات"}
+      </button>
     </form>
   );
 }

@@ -128,6 +128,12 @@ async function createCourse(data: {
 }
 
 async function main() {
+  const existingAdmin = await prisma.user.findFirst({ where: { role: "ADMIN" } });
+  if (existingAdmin) {
+    console.log("Seed skipped: database already has data.");
+    return;
+  }
+
   const adminHash = await bcrypt.hash("Admin@2026", 10);
 
   await prisma.user.upsert({
