@@ -2,8 +2,15 @@ import { NextResponse } from "next/server";
 import { getSettings, setSettings } from "@/lib/settings";
 import { saveUpload } from "@/lib/uploads";
 
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   return NextResponse.json({ settings: await getSettings() });
+}
+
+export async function POST(req: Request) {
+  return PUT(req);
 }
 
 export async function PUT(req: Request) {

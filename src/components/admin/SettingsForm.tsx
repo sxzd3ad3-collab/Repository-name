@@ -27,18 +27,36 @@ export function SettingsForm({ settings }: { settings: Record<string, string> })
   const [msg, setMsg] = useState("");
   const [err, setErr] = useState("");
   const [loading, setLoading] = useState(false);
+
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setMsg("");
     setErr("");
     setLoading(true);
     const form = new FormData(e.currentTarget);
-    const res = await fetch("/api/admin/settings", { method: "PUT", body: form });
-    const data = await res.json().catch(() => ({}));
+    const payload: Record<string, string> = {};
+    for (const [key] of fields) payload[key] = String(form.get(key) || "");
+    const res = await fetch("/api/admin/settings", {
+      method: "POST",
+      credentials: "include",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const text = await res.text();
+    let data: { error?: string } = {};
+    try {
+      data = JSON.parse(text);
+    } catch {
+      data = {};
+    }
     setLoading(false);
-    if (!res.ok) setErr(data.error || "تعذر الحفظ. سجّل الدخول مرة أخرى ثم أعد المحاولة.");
-    else setMsg("تم حفظ الإعدادات");
+    if (!res.ok) {
+      setErr(data.error || `تعذر الحفظ (رمز ${res.status})`);
+      return;
+    }
+    setMsg("تم حفظ الإعدادات");
   }
+
   return (
     <form onSubmit={onSubmit} className="card mt-5 space-y-3 p-5">
       {fields.map(([key, label, type]) => (
@@ -51,14 +69,6 @@ export function SettingsForm({ settings }: { settings: Record<string, string> })
           )}
         </div>
       ))}
-      <div>
-        <label className="label">صورة صفحة من نحن</label>
-        <input type="file" name="aboutImageFile" accept="image/*" className="input" />
-      </div>
-      <div>
-        <label className="label">اللوجو</label>
-        <input type="file" name="logoFile" accept="image/*" className="input" />
-      </div>
       {err && <p className="font-bold text-coral">{err}</p>}
       {msg && <p className="font-bold text-leaf">{msg}</p>}
       <button className="btn-primary" disabled={loading}>
@@ -78,10 +88,11 @@ export function AdminPasswordForm() {
     const password = String(new FormData(e.currentTarget).get("password") || "");
     const res = await fetch("/api/admin/password", {
       method: "PUT",
+      credentials: "include",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ password }),
     });
-    const data = await res.json();
+    const data = await res.json().catch(() => ({}));
     if (!res.ok) setErr(data.error || "تعذر التغيير");
     else {
       setMsg("تم تغيير كلمة المرور. استخدم الكلمة الجديدة في الدخول التالي.");
