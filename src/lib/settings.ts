@@ -32,6 +32,11 @@ export async function getSettings() {
   const rows = await prisma.setting.findMany();
   const map = { ...DEFAULT_SETTINGS };
   for (const row of rows) map[row.key] = row.value;
+  if (process.env.INSTAPAY_NAME) map.instapayName = process.env.INSTAPAY_NAME;
+  if (process.env.INSTAPAY_ADDRESS) map.instapayAddress = process.env.INSTAPAY_ADDRESS;
+  if (process.env.FACEBOOK_URL) map.facebookUrl = process.env.FACEBOOK_URL;
+  if (process.env.YOUTUBE_URL) map.youtubeUrl = process.env.YOUTUBE_URL;
+  if (process.env.TIKTOK_URL) map.tiktokUrl = process.env.TIKTOK_URL;
   return map;
 }
 
