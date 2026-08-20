@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #fbf8f3;
+  --foreground: #10243a;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  min-height: 100vh;
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl px-5 py-3 text-base font-bold transition active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .btn-primary {
+    @apply btn bg-teal text-white shadow-soft hover:bg-ocean;
+  }
+
+  .btn-gold {
+    @apply btn bg-gold text-ink hover:bg-amber;
+  }
+
+  .btn-outline {
+    @apply btn border-2 border-navy/15 bg-white text-navy hover:border-teal hover:text-teal;
+  }
+
+  .btn-ghost {
+    @apply btn text-navy hover:bg-white/70;
+  }
+
+  .card {
+    @apply rounded-3xl border border-navy/5 bg-white shadow-card;
+  }
+
+  .input {
+    @apply w-full rounded-2xl border border-navy/10 bg-white px-4 py-3 text-base outline-none transition focus:border-teal focus:ring-2 focus:ring-teal/20;
+  }
+
+  .label {
+    @apply mb-1.5 block text-sm font-bold text-navy;
+  }
+
+  .section-title {
+    @apply text-2xl font-black text-ink sm:text-3xl;
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full bg-sand px-3 py-1 text-xs font-bold text-navy;
+  }
+}
+
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+}
+
+/* Keep native media controls usable on mobile */
+video {
+  width: 100%;
+  border-radius: 1rem;
+  background: #000;
+}

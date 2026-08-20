@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" fill="none">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="800" y2="500">
+      <stop stop-color="#1A5276"/>
+      <stop offset="1" stop-color="#10243A"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#g)"/>
+  <circle cx="680" cy="80" r="140" fill="white" fill-opacity=".07"/>
+  <circle cx="80" cy="430" r="160" fill="#D4A017" fill-opacity=".16"/>
+  <text x="56" y="210" fill="#F6F1E8" font-size="42" font-family="Tahoma, Arial" font-weight="700">القراءة</text>
+  <text x="56" y="270" fill="#E8B84A" font-size="28" font-family="Arial" font-weight="700">Reading</text>
+  <text x="56" y="330" fill="#F6F1E8" fill-opacity=".85" font-size="20" font-family="Arial">Mr Ahmed Shaban</text>
+</svg>
