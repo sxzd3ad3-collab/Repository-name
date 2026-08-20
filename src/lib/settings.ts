@@ -5,8 +5,8 @@ export const DEFAULT_SETTINGS: Record<string, string> = {
   siteNameEn: "Mr Ahmed Shaban",
   siteTagline:
     "منصة تعليمية متكاملة لتعلم اللغة الإنجليزية لجميع المراحل والمستويات، من تأسيس الأطفال والفونكس إلى المحادثة والجرامر وجميع مهارات اللغة الإنجليزية.",
-  instapayName: "",
-  instapayAddress: "",
+  instapayName: "shaban4english1",
+  instapayAddress: "https://ipn.eg/S/shaban4english1/instapay/9u7jAP",
   whatsapp: "01552647559",
   facebookUrl: "",
   instagramUrl: "https://www.instagram.com/shaban4english/",
@@ -32,6 +32,8 @@ export async function getSettings() {
   const rows = await prisma.setting.findMany();
   const map = { ...DEFAULT_SETTINGS };
   for (const row of rows) map[row.key] = row.value;
+  if (!map.instapayName) map.instapayName = DEFAULT_SETTINGS.instapayName;
+  if (!map.instapayAddress) map.instapayAddress = DEFAULT_SETTINGS.instapayAddress;
   if (process.env.INSTAPAY_NAME) map.instapayName = process.env.INSTAPAY_NAME;
   if (process.env.INSTAPAY_ADDRESS) map.instapayAddress = process.env.INSTAPAY_ADDRESS;
   if (process.env.FACEBOOK_URL) map.facebookUrl = process.env.FACEBOOK_URL;

@@ -167,9 +167,19 @@ export function BookingWizard({
               <p>
                 <span className="font-bold">اسم الحساب:</span> {settings.instapayName || "—"}
               </p>
-              <p>
-                <span className="font-bold">رقم / عنوان InstaPay:</span> {settings.instapayAddress || "—"}
+              <p className="break-all">
+                <span className="font-bold">رابط / عنوان InstaPay:</span> {settings.instapayAddress || "—"}
               </p>
+              {settings.instapayAddress?.startsWith("http") && (
+                <a
+                  href={settings.instapayAddress}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="btn-gold w-full"
+                >
+                  ادفع الآن عبر InstaPay
+                </a>
+              )}
             </>
           ) : (
             <p className="rounded-2xl bg-amber/20 p-3 text-sm font-bold text-navy">

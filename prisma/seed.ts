@@ -223,8 +223,8 @@ async function main() {
     siteNameEn: "Mr Ahmed Shaban",
     siteTagline:
       "منصة تعليمية متكاملة لتعلم اللغة الإنجليزية لجميع المراحل والمستويات، من تأسيس الأطفال والفونكس إلى المحادثة والجرامر وجميع مهارات اللغة الإنجليزية.",
-    instapayName: "",
-    instapayAddress: "",
+    instapayName: "shaban4english1",
+    instapayAddress: "https://ipn.eg/S/shaban4english1/instapay/9u7jAP",
     whatsapp: "01552647559",
     facebookUrl: "",
     instagramUrl: "https://www.instagram.com/shaban4english/",
