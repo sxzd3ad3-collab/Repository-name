@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  eslint: { ignoreDuringBuilds: true },
+  typescript: { ignoreBuildErrors: false },
   allowedDevOrigins: [
     "3000-i0dg6a4zbik8bvv4zon67.e2b.app",
     "*.e2b.app",

@@ -92,7 +92,7 @@ function UnitBlock({ unit, onChange }: { unit: Unit; onChange: () => void }) {
 
 function LessonBlock({ lesson, onChange }: { lesson: Lesson; onChange: () => void }) {
   const [yt, setYt] = useState("");
-  const [quizTitle, setQuizTitle] = useState("اختبار سريع");
+  const quizTitle = "اختبار سريع";
 
   async function addYoutube() {
     if (!yt.trim()) return;

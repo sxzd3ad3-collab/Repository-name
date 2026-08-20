@@ -13,7 +13,8 @@ export async function GET(_req: Request, { params }: { params: { id: string } })
     },
   });
   if (!user) return NextResponse.json({ error: "غير موجود" }, { status: 404 });
-  const { passwordHash, ...safe } = user;
+  const { passwordHash: _passwordHash, ...safe } = user;
+  void _passwordHash;
   return NextResponse.json({ user: safe });
 }
 
