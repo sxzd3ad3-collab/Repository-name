@@ -2,7 +2,9 @@ import { mkdir, writeFile } from "fs/promises";
 import path from "path";
 import { randomBytes } from "crypto";
 
-export const UPLOAD_ROOT = path.join(process.cwd(), "data", "uploads");
+export const UPLOAD_ROOT = process.env.VERCEL
+  ? path.join("/tmp", "uploads")
+  : path.join(process.cwd(), "data", "uploads");
 
 const ALLOWED_IMAGE = new Set(["image/jpeg", "image/png", "image/webp", "image/gif"]);
 const ALLOWED_DOC = new Set<string>(["application/pdf", "image/jpeg", "image/png", "image/webp", "image/gif"]);
